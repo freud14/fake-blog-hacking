@@ -1,0 +1,156 @@
+*{ margin:0;padding:0; }
+
+body
+{
+	height: 100%;
+	font: normal 0.8em "Trebuchet MS",Verdana,Tahoma,sans-serif;
+	color: black;
+	background: #404040 url(./images/Bitducks.png);
+}
+
+h1
+{
+	background:url(./images/logo.png) no-repeat;
+	width:276px;
+	height:27px;
+	position:relative;
+	top:60px;
+	left:230px;
+}
+
+#page
+{
+	margin:0 auto 0 auto;
+	width:639px;
+}
+
+.header
+{
+	background:url(./images/header.png) no-repeat;
+	width:639px;
+	height:200px;
+}
+
+ul
+{
+	list-style-type:none;
+}
+
+li
+{
+	width:150px;
+	height:30px;
+	text-align:center;
+}
+
+a
+{
+	width:150px;
+	height:30px;
+	color:#FC7216;
+	text-decoration:none;
+}
+
+a:hover
+{
+	width:150px;
+	height:30px;
+	color:white;
+	text-decoration:underline;
+}
+
+.txt a:hover
+{
+	width:150px;
+	height:30px;
+	color:#FC7216;
+	text-decoration:underline;
+}
+
+.contenu
+{
+	width:100%;
+	margin:20px 0 20px 0;
+	background:url(./images/bloc.png) repeat-y;
+}
+
+h2
+{
+	background:url(./images/titre.png) no-repeat;
+	width:639px;
+	height:45px;
+	font:bold 0.9em "Trebuchet MS", Sans-serif;
+	color:#FC7216;
+	padding:13px 0 0 15px;
+}
+
+.signature
+{
+	padding:0 0 15px 0;
+	margin-top:20px;
+	width:639px;
+	height:9px;
+	text-align:center;
+	font:italic 0.7em "Trebuchet MS", Sans-serif;
+	color:#A1A1A1;
+	clear:both;
+}
+
+
+.bas_bloc
+{
+	background:url(./images/bas_bloc.png) bottom no-repeat;
+	width:639px;
+	height:9px;
+	text-align:center;
+	font:italic 0.7em "Trebuchet MS", Sans-serif;
+	color:#A1A1A1;
+	clear:both;
+}
+
+.bas_bloc a
+{
+	text-align:center;
+	font:italic 1.1em "Trebuchet MS", Sans-serif;
+	color:#A1A1A1;
+}
+
+#connexion
+{
+}
+
+.txt
+{
+	padding-top: 7px;
+	width: 100%;
+	text-align: center;
+}
+
+#listemembre
+{
+	 margin:auto;
+	 width:60%;
+	 border:1px solid black;
+}
+
+#form
+{
+	 margin:auto;
+	 width:60%;
+}
+
+#listemembre td
+{
+	border:1px solid black;
+}
+
+.hr 
+{
+background:url(./images/titre.png) no-repeat;
+background-color: #FFFFFF;
+/*border: 1px solid #000000;*/
+height: 10px;
+margin: 20px 0;
+width: 638px;
+}
+
