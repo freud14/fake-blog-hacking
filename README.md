@@ -52,5 +52,11 @@ To explain the URL, the first two dots (`../`) are there because if you remember
 
 \* In this case, this vulnerability is simulated. This is the only simulated vulnerability because this vulnerability has already existed but is not anymore available.
 
+### SQL injection
 
+The goal of this vulnerability is to inject SQL statement into SQL queries that are not intended to. To be able to exploit SQL injection, you have to know some basis of SQL. A classic SQL injection is when you have a login form that don't escape character in the username. Let's think how the SQL query might be build to verify if the user and the password match; `python "SELECT * FROM users WHERE login = '".$_POST['login']."' AND password='".$_POST['password']."'"`.
 
+ ```python
+  s = "Python syntax highlighting"
+   print s
+    ```
