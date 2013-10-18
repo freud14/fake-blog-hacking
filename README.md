@@ -39,3 +39,14 @@ So, all is in place. Let's the hacking begin! The goal of the manipulations here
 #### Persistent XSS
 
 A persistent XSS is exactly the same as a non-persistent XSS except that the persistent XSS is inserted in a DB and all user that arrive on a certain page will be victim of the XSS. So, there is a persitent XSS in the comment section of each blog entry. The exploit technique is absolutly the same except you don't have to send a URL to a user and just wait that someone came to the page.
+
+### File inclusion vulnerability
+
+File inclusion vulnerabilities are vulnerabilities that can able an attacker to include a file not supposed to be include in the page. A classic example of this vulnerablity is a web site that take a parameter `page` in the URL to show the good page to the client. The URL usually looks like `http://mywebsite.com/index.php?page=home.php`. So, if the developper didn't secure his function, it is possible to include many files often on the server itself. More rarely, you could be able to include an external file and then execute the content of this file by PHP so doing what you want on the server.
+
+So, what do we have here? There is a `page` parameter. If you try to write anyting else in this parameter, you'll see that the `.php` is added at the end of the include function. It's not very convenient. Also, you can notice that you're not able to include external files because the include file begin with `./include/`. But, if we look for vulnerabilities in the include function of PHP, we'll find that `include` had a vulnerability, in old version of PHP, that permitted to skip the end of the include string by inserting a NULL byte in the string because PHP stopped reading the string if it read a NULL byte. 
+
+So now, we know we can possibly include any files on the web server if the user that executes PHP has the right to read these. Of course, if thesystem administrators are very dump, we could read the `/etc/shadow` and `/etc/passwd` files. But let's suppose they're not for the case here. If you do some tests on the website, you may have discovered there is a `admin/` URL with a username and a password. So, to discover what are the credentials, we use the file inclusion vulnerability we discovered and we do an URL like this: `index.php?page=../admin/.htpasswd`. And boom, we now have a hashed version of the admin user password. You can now use any tool that crack hashes and will discover that the password is `admin`.
+
+To explain the URL, the first two dots (`../`) are there base if you remember the include string was begining by `./include/` so we need to come back because we want to go in the `./admin/` directory and not the `./include/admin/` directory. Finally, the `.htpasswd` file is the standard file for Apache HTTP password configuration (Htaccess).
+
