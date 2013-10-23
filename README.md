@@ -54,9 +54,26 @@ To explain the URL, the first two dots (`../`) are there because if you remember
 
 ### SQL injection
 
-The goal of this vulnerability is to inject SQL statement into SQL queries that are not intended to. To be able to exploit SQL injection, you have to know some basis of SQL. A classic SQL injection is when you have a login form that don't escape character in the username. Let's think how the SQL query might be build to verify if the user and the password match; `python "SELECT * FROM users WHERE login = '".$_POST['login']."' AND password='".$_POST['password']."'"`.
+The goal of this vulnerability is to inject SQL statement into SQL queries that are not intended to. To be able to exploit SQL injection, you have to know some basis of SQL. A classic SQL injection is when you have a login form that don't escape character in the username. Let's think how the SQL query might be build to verify if the user and the password match: `"SELECT * FROM users WHERE login = '".$_POST['login']."' AND password='".md5($_POST['password'])."'"`(in PHP). So, to bypass this verification, you can see that the login field is not verified against injection so you can inject any SQL fragment you want. Then, one injection that could bypass this verification could be `admin' #`. The single quote after the username is because we have to clause the SQL string opened in the query. Finally, we have a hashtag character because we don't want that SQL verifies the password we entered so the hashtag is just a comment for the rest of the line.
 
-```python
-  s = "Python syntax highlighting"
-   print s
-```
+#### Classical SQL injection in the fake blog
+
+In the blog, there is two SQL injection. The first one is a more classical injection. If you go in the members list page and click on one members, you'll have an URL that looks like that: `index.php?page=profile&id=1`. So, if you play a little with the id parameter, you'll see that it can generate SQL error if you let a number at first character. The tricks to exploit this SQL injection is to put a number that don't exist as an ID for a user in the database. With guessing, you'll arrive with that string: `-1 UNION SELECT id,login, password from user`. You could have found the name of the tables by guessing because they are very simple and usual or you could have found these by querying the MySQL catalog (see at the end of this text).
+
+#### Blind SQL injection
+
+The second one SQL injection in the blog is called a "Blind SQL injection". The qualifier "blind" simple means that you can't directly see what you want to see; you have to find clue about whaat you have like a blind person do with a stick. More formal, a blind SQL injection is when you can have boolean clue about what is executed in the SQL query. For instance, if you have a page saying that your answer is wrong and with a good injection SQL, the page says that your answer is good then you have a blind SQL injection.
+
+In the blog, you maybe have notice there is a message in the bottom of each that says: "The browser you are currently using is not supported by our blog. This may cause some bugs. This message will disappear once you have a good browser.". In web hacking, it is important to know how HTTP works. With a message like that, normally, you'll think about HTTP user-agent and you're right. You can also guess if your browser provide a good HTTP user-agent, the message will disappear as said in the message. So, if you tried to inject some data like quote (') in the user-agent, you'll see SQL errors.
+
+The goal here is to inject SQL fragment and see if the message disappear or not. Usually, you try to find how long the string in the database is first. Then, you try to brute-force each by each character of the string by a set of characters you choose. After that, you have all you need. For the first step, you can use the `LENGTH(mycolumn)` SQL function and compare it with a range of number until it return true. For the second step, you can use the `SUBSTRING(mycolumn, i, 1)` SQL function where `i` is the index of the character in the string to brute-force and also compare it with a set of characters you choose. You can see all that in the "Exploit\_Blog\_hack.php" file where the attack is made to find the password of the admin user.
+
+## Others
+
+### MySQL catalog
+
+### Useful tools in web haking
+
+### Instinct
+
+### Useful links
