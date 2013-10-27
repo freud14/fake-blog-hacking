@@ -54,7 +54,7 @@ To explain the URL, the first two dots (`../`) are there because if you remember
 
 ### SQL injection
 
-The goal of this vulnerability is to inject SQL statement into SQL queries that are not intended to. To be able to exploit SQL injection, you have to know some basis of SQL. A classic SQL injection is when you have a login form that don't escape character in the username. Let's think how the SQL query might be build to verify if the user and the password match: `"SELECT * FROM users WHERE login = '".$_POST['login']."' AND password='".md5($_POST['password'])."'"`(in PHP). So, to bypass this verification, you can see that the login field is not verified against injection so you can inject any SQL fragment you want. Then, one injection that could bypass this verification could be `admin' #`. The single quote after the username is because we have to clause the SQL string opened in the query. Finally, we have a hashtag character because we don't want that SQL verifies the password we entered so the hashtag is just a comment for the rest of the line.
+The goal of this vulnerability is to inject SQL statement into SQL queries that are not intended to. To be able to exploit SQL injection, you have to know some basis of SQL. A classic SQL injection is when you have a login form that don't escape character in the username. Let's think how the SQL query might be build to verify if the user and the password match: `"SELECT * FROM users WHERE login = '".$_POST['login']."' AND password='".md5($_POST['password'])."'"`(in PHP). So, to bypass this verification, you can see that the login field is not verified against injection so you can inject any SQL fragment you want. Then, one injection that could bypass this verification could be `admin' #`. The single quote after the username is because we have to close the SQL string opened in the query. Finally, we have a hashtag character because we don't want that SQL verifies the password we entered so the hashtag is just a comment for the rest of the line.
 
 #### Classical SQL injection in the fake blog
 
@@ -70,7 +70,25 @@ The goal here is to inject SQL fragment and see if the message disappears or not
 
 ## Others
 
-### MySQL catalog
+### MySQL INFORMATION\_SCHEMA
+
+The MySQL INFORMATION\_SCHEMA schema is a schema containing all information about your schemas and your tables. It can be particuliary useful when doing SQL injection and having no idea what are the tables name or their columns name. The most useful tables in that schema are `TABLES` and `COLUMNS`. Here is an example of query to obtain a list of columns associated to their tables in the `blog_hack` schema.
+
+```sql
+    SELECT 
+	    information_schema.tables.table_schema, 
+        information_schema.tables.table_name,
+		information_schema.columns.column_name
+    FROM 
+	    information_schema.tables
+            JOIN information_schema.columns ON 
+			    information_schema.columns.table_name = information_schema.tables.table_name AND 
+				information_schema.columns.table_schema = information_schema.tables.table_schema
+    WHERE 
+	    information_schema.tables.table_schema = 'blog_hack';
+```
+
+And, this is a link to the INFORMATION\_SCHEMA schema documentation: https://dev.mysql.com/doc/refman/5.7/en/information-schema.html
 
 ### Useful tools in web haking
 
