@@ -75,23 +75,56 @@ The goal here is to inject SQL fragment and see if the message disappears or not
 The MySQL INFORMATION\_SCHEMA schema is a schema containing all information about your schemas and your tables. It can be particuliary useful when doing SQL injection and having no idea what are the tables name or their columns name. The most useful tables in that schema are `TABLES` and `COLUMNS`. Here is an example of query to obtain a list of columns associated to their tables in the `blog_hack` schema.
 
 ```sql
-    SELECT 
-	    information_schema.tables.table_schema, 
-        information_schema.tables.table_name,
-		information_schema.columns.column_name
-    FROM 
-	    information_schema.tables
-            JOIN information_schema.columns ON 
-			    information_schema.columns.table_name = information_schema.tables.table_name AND 
-				information_schema.columns.table_schema = information_schema.tables.table_schema
-    WHERE 
-	    information_schema.tables.table_schema = 'blog_hack';
+SELECT 
+    information_schema.tables.table_schema, 
+    information_schema.tables.table_name,
+	information_schema.columns.column_name
+FROM 
+    information_schema.tables
+        JOIN information_schema.columns ON 
+		    information_schema.columns.table_name = information_schema.tables.table_name AND 
+			information_schema.columns.table_schema = information_schema.tables.table_schema
+WHERE 
+    information_schema.tables.table_schema = 'blog_hack';
 ```
 
 And, this is a link to the INFORMATION\_SCHEMA schema documentation: https://dev.mysql.com/doc/refman/5.7/en/information-schema.html
 
 ### Useful tools in web haking
 
+#### Firefox add-ons
+
+HackBar \(https://addons.mozilla.org/fr/firefox/addon/hackbar/\) - Very useful for URL manipulation
+Tamper Data \(https://addons.mozilla.org/fr/firefox/addon/tamper-data/\) - For intercepting HTTP request made by your browser
+Web Developer \(https://addons.mozilla.org/fr/firefox/addon/web-developer/\)
+Cookies Manager+ \(https://addons.mozilla.org/en-US/firefox/addon/cookies-manager-plus/\) - To edit your cookie
+User Agent Switcher \(https://addons.mozilla.org/fr/firefox/addon/user-agent-switcher/\)
+Firebug \(https://addons.mozilla.org/fr/firefox/addon/firebug/\) - Or the web development firefox integrated tools
+
+#### Others
+
+Burp suite
+
+findmyhash
+
+dirbuster: https://www.owasp.org/index.php/Category:OWASP\_DirBuster\_Project
+
+john
+hashcat
+
+netcat
+
 ### Instinct
 
 ### Useful links
+
+Google is always your friend. OWASP wiki is pretty good if Google linked that to you.
+
+newbie contest
+hackthissite : http://www.hackthissite.org/
+
+Hackfest Backtrack introduction:
+http://www.hackfest.ca/2012/backtrack-101-2-dirbuster
+http://www.hackfest.ca/2012/backtrack-101-2-nmap-nse
+http://www.hackfest.ca/2012/backtrack-101-4-hydra
+http://www.hackfest.ca/2012/backtrack-101-5-netcat
