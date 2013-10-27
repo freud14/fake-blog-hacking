@@ -94,25 +94,21 @@ And, this is a link to the INFORMATION\_SCHEMA schema documentation: https://dev
 
 #### Firefox add-ons
 
-HackBar \(https://addons.mozilla.org/fr/firefox/addon/hackbar/\) - Very useful for URL manipulation
-Tamper Data \(https://addons.mozilla.org/fr/firefox/addon/tamper-data/\) - For intercepting HTTP request made by your browser
-Web Developer \(https://addons.mozilla.org/fr/firefox/addon/web-developer/\)
-Cookies Manager+ \(https://addons.mozilla.org/en-US/firefox/addon/cookies-manager-plus/\) - To edit your cookie
-User Agent Switcher \(https://addons.mozilla.org/fr/firefox/addon/user-agent-switcher/\)
-Firebug \(https://addons.mozilla.org/fr/firefox/addon/firebug/\) - Or the web development firefox integrated tools
+* HackBar \( https://addons.mozilla.org/fr/firefox/addon/hackbar/ \) - Very useful for URL manipulation
+* Tamper Data \( https://addons.mozilla.org/fr/firefox/addon/tamper-data/ \) - For intercepting HTTP request made by your browser
+* Web Developer \( https://addons.mozilla.org/fr/firefox/addon/web-developer/ \)
+* Cookies Manager+ \( https://addons.mozilla.org/en-US/firefox/addon/cookies-manager-plus/ \) - To edit your cookie
+* User Agent Switcher \( https://addons.mozilla.org/fr/firefox/addon/user-agent-switcher/ \)
+* Firebug \( https://addons.mozilla.org/fr/firefox/addon/firebug/ \) - Or the web development firefox integrated tools
 
-#### Others
+#### Applications
 
-Burp suite
-
-findmyhash
-
-dirbuster: https://www.owasp.org/index.php/Category:OWASP\_DirBuster\_Project
-
-john
-hashcat
-
-netcat
+* Burp Suite \( http://www.portswigger.net/burp/ \) - A proxy to intercept your HTTP request.
+* findmyhash \( http://code.google.com/p/findmyhash/ \) - Very useful when you have to crack hashes. It's a Python script to crack hashes using online services like MD5Decrypter or MD5Online. It supports many type of hashes.
+* DirBuster \( https://www.owasp.org/index.php/Category:OWASP\_DirBuster\_Project \) - Very useful to discover secret path on a webserver. It bruteforce a server with many common patterns.
+* netcat \( https://en.wikipedia.org/wiki/Netcat \) - To manipulate raw text and send a custom HTTP request to a web server. Available by default in all UNIX system and derivate.
+* John the Ripper \( http://www.openwall.com/john/ \) - To bruteforce hashes.
+* hashcat \( http://hashcat.net/oclhashcat-plus/ \) - To bruteforce hashes with GPU.
 
 ### Instinct
 
@@ -120,11 +116,16 @@ netcat
 
 Google is always your friend. OWASP wiki is pretty good if Google linked that to you.
 
-newbie contest
-hackthissite : http://www.hackthissite.org/
+#### For practicing
 
-Hackfest Backtrack introduction:
-http://www.hackfest.ca/2012/backtrack-101-2-dirbuster
-http://www.hackfest.ca/2012/backtrack-101-2-nmap-nse
-http://www.hackfest.ca/2012/backtrack-101-4-hydra
-http://www.hackfest.ca/2012/backtrack-101-5-netcat
+* NewbieContest \( http://www.newbiecontest.org/ \) - In french but very good to start.
+* hackthissite \( ttps://www.hackthissite.org/ \)
+* And many other sites, ask Google!
+
+#### For learning
+
+* Hackfest Backtrack introduction (in french):
+ * http://www.hackfest.ca/2012/backtrack-101-2-dirbuster
+ * http://www.hackfest.ca/2012/backtrack-101-2-nmap-nse
+ * http://www.hackfest.ca/2012/backtrack-101-4-hydra
+ * http://www.hackfest.ca/2012/backtrack-101-5-netcat
