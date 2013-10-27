@@ -119,7 +119,7 @@ Google is always your friend. OWASP wiki is pretty good if Google linked that to
 #### For practicing
 
 * NewbieContest \( http://www.newbiecontest.org/ \) - In french but very good to start.
-* hackthissite \( ttps://www.hackthissite.org/ \)
+* hackthissite \( https://www.hackthissite.org/ \)
 * And many other sites, ask Google!
 
 #### For learning
