@@ -1,4 +1,4 @@
-﻿<div class="contenu">
+<div class="contenu">
 	<h2>Inscription</h2>
 	<div class="txt">
 		<form method="POST" action="index.php?page=credit">

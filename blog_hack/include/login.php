@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if(isset($_POST['login']) && isset($_POST['pass']) && !empty($_POST['login']) && !empty($_POST['pass'])) {
     $sql = "SELECT id, level FROM user WHERE login = '" . $_POST['login'] . "' AND password = '" . md5($_POST['pass']) ."';";
     

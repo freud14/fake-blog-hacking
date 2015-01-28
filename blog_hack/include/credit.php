@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (!(isset($_POST['login'])&&
 	isset($_POST['pass']) 	&&
 	isset($_POST['email']) 	&&

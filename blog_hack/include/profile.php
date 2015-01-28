@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     
 $id =  $_SESSION['id'];
 if(isset($_GET['id']) && intval($_GET['id'])) {

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $search = "";
 if(isset($_GET['search']) && !empty($_GET['search'])) {

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	$result = mysql_query("SELECT * FROM accepted_user_agent WHERE user_agent = '".$_SERVER['HTTP_USER_AGENT']."'");
 	$count = mysql_num_rows($result);
 	

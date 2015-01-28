@@ -1,4 +1,4 @@
-﻿<?php
+<?php
     if(!(isset($_GET['id']) && intval($_GET['id'])))
     {
         header('Location: ./index.php');
