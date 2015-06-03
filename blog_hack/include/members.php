@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 $search = "";
 if(isset($_GET['search']) && !empty($_GET['search'])) {
-    $search = " WHERE login LIKE '%".mysql_real_escape_string($_GET['search'])."%'";
+    $search = " WHERE login LIKE '%".mysqli_real_escape_string($link,$_GET['search'])."%'";
 }
 
 $sql = "SELECT
@@ -14,7 +14,7 @@ $sql = "SELECT
             user"
         . $search . ";";
 
-$query = mysql_query($sql);
+$query = mysqli_query($link,$sql);
 
 ?>
 <div class="contenu">        <h2>Liste des membres</h2>
@@ -35,7 +35,7 @@ $query = mysql_query($sql);
                 <td> <strong> Niveau </strong> </td>
            </tr>
     
-<?php  while($row = mysql_fetch_array($query)) { ?>
+<?php  while($row = mysqli_fetch_array($query)) { ?>
             <tr>
                 <td> <a href="index.php?page=profile&id=<?php echo $row['id']; ?>"><?php echo htmlspecialchars($row['login']); ?></a> </td>
                 <td> <?php echo htmlspecialchars($row['email']); ?> </td>

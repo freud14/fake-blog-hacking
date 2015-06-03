@@ -1,9 +1,9 @@
 <?php
     if(!(isset($_GET['id']) && intval($_GET['id'])))
     {
-        header('Location: ./index.php');
+		header('Location: ./index.php');
     }
-    
+
     if(isset($_POST['comment']) && !empty($_POST['comment'])) {
         $sql = "INSERT INTO
                     comment
@@ -13,8 +13,8 @@
                 VALUES
                     (".$_SESSION['id'] .",".
                     intval($_GET['id']).", '" .
-                    mysql_real_escape_string($_POST['comment'])."');";
-        mysql_query($sql);
+                    mysqli_real_escape_string($link,$_POST['comment'])."');";
+        mysqli_query($link,$sql);
     }
 
     $sql = "SELECT
@@ -33,13 +33,13 @@
             LIMIT
                 10;";
     
-    $post_query = mysql_query($sql);
+    $post_query = mysqli_query($link,$sql);
     
-    if (mysql_num_rows($post_query) == 0) {
+    if (mysqli_num_rows($post_query) == 0) {
         header('Location: ./index.php');
     }
-    
-    $post_row = mysql_fetch_array($post_query);    
+
+    $post_row = mysqli_fetch_assoc($post_query);    
     
     $sql = "SELECT
                 comment.id,
@@ -53,8 +53,9 @@
             ORDER BY
                 comment.id;";
     
-    $comment_query = mysql_query($sql);       
-                
+    $comment_query = mysqli_query($link,$sql);       
+    
+    include "./include/header.php"; 
 ?>
 
 <div class="contenu">
@@ -62,7 +63,7 @@
     <div class="txt"><?php echo $post_row['message']; ?></div>
     <div class="signature"><?php echo $post_row['login']; ?></div>
     
-    <?php while ($comment_row = mysql_fetch_array($comment_query)) { ?>
+    <?php while ($comment_row = mysqli_fetch_assoc($comment_query)) { ?>
             
             <div class="comment">
                 <div class="hr"></div>
@@ -71,9 +72,7 @@
             </div>
     
     <?php } ?>
-    
-    
-    
+     
     <?php if($_SESSION['level'] >= 2) {?>
         <div class="hr"></div>
         <form method="post" action="">
@@ -83,18 +82,3 @@
     
     <div class="bas_bloc"></div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

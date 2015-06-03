@@ -1,6 +1,7 @@
-<?php
-	mysql_connect("localhost", "root", "salut123");
-	mysql_select_db("blog_hack");
-	
-    session_start();
+<?php 
+
+	session_start();
+
+	$link = mysqli_connect( "", "admin_hack", "torototo", "test_hack" ) or die("Error " . mysqli_error($link));
+
 ?>

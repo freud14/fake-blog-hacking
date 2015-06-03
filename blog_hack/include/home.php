@@ -13,14 +13,15 @@
             LIMIT
                 10;";
     
-    $query = mysql_query($sql);         
+    $query = mysqli_query($link, $sql);         
                 
 ?>
 
 <div class="contenu">
 
 <?php
-    while ($row = mysql_fetch_array($query)) { ?>
+
+    while ($row = mysqli_fetch_assoc($query) ) { ?>
 
     <h2><a href="index.php?page=post&id=<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a></h2>
     <div class="txt"><?php echo $row['message']; ?></div>
