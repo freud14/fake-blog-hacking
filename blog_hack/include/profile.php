@@ -13,8 +13,8 @@ $sql = "SELECT
         WHERE
             id = " . $id . ";";
 
-$query = mysql_query($sql);
-$row = mysql_fetch_array($query);
+$query = mysqli_query($link, $sql);
+$row = mysqli_fetch_assoc($query);
 
 if($row !== false) { ?>
 

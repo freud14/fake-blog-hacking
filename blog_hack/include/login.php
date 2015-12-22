@@ -1,16 +1,21 @@
 <?php
 if(isset($_POST['login']) && isset($_POST['pass']) && !empty($_POST['login']) && !empty($_POST['pass'])) {
-    $sql = "SELECT id, level FROM user WHERE login = '" . $_POST['login'] . "' AND password = '" . md5($_POST['pass']) ."';";
+    $sql = "SELECT * FROM user WHERE login = '" . $_POST['login'] . "' AND password = '" . md5($_POST['pass']) ."';";
     
-    $query = mysql_query($sql);
-    $result = mysql_fetch_array($query);
+    $query = mysqli_query($link, $sql);
+    $result = mysqli_fetch_array($query);
     
-    if($result !== false) {
+    if(!is_null($result)) {
+
         $_SESSION['id'] =  $result['id'];
         $_SESSION['level'] =  $result['level'];
+        setcookie('login',$result['login'],time()+3600);
+        setcookie('password',$result['password'],time()+3600);
         header("Location: index.php?page=home");
     }
     else {
+
+        include "./include/header.php";
 ?>
     <div class="contenu" id="connexion">
         <h2>Connexion refusée</h2>
@@ -23,8 +28,9 @@ if(isset($_POST['login']) && isset($_POST['pass']) && !empty($_POST['login']) &&
     }
 }
 else {
+    include "./include/header.php";
 ?>
-
+ 
     <div class="contenu" id="connexion">
         <h2>Connexion</h2>
         <div class="txt">

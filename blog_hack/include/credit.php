@@ -10,6 +10,8 @@ if (!(isset($_POST['login'])&&
 		header('Location: ./index.php?page=subscribe');
 	}
 	
+	include "./include/header.php";
+
 	$login = $_POST['login'];
 	$pass = $_POST['pass'];
 	$email = $_POST['email'];
@@ -18,12 +20,12 @@ if (!(isset($_POST['login'])&&
 	if (isset($_POST['total']) && $_POST['total'] == 15684) {
 		//Insertion dans la BD
 		$query = "INSERT INTO user (login, password, email, level) VALUES (
-					'" . mysql_real_escape_string($login) . "',
+					'" . mysqli_real_escape_string($link, $login) . "',
 					'" . md5($pass) . "',
-					'" . mysql_real_escape_string($email) . "',
+					'" . mysqli_real_escape_string($link, $email) . "',
 					" . intval($type) . ");";
 		
-		$query = mysql_query($query);
+		$query = mysqli_query($link, $query);
 	?>
 		<div class="contenu">
 			<h2></h2>

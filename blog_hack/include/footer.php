@@ -1,6 +1,6 @@
 <?php
-	$result = mysql_query("SELECT * FROM accepted_user_agent WHERE user_agent = '".$_SERVER['HTTP_USER_AGENT']."'");
-	$count = mysql_num_rows($result);
+	$result = mysqli_query($link, "SELECT * FROM accepted_user_agent WHERE user_agent = '".$_SERVER['HTTP_USER_AGENT']."'");
+	$count = mysqli_num_rows($result);
 	
 	if($count == 0) { ?>
 			<div class="contenu">
