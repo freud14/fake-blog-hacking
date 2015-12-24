@@ -14,8 +14,6 @@ if(isset($_POST['login']) && isset($_POST['pass']) && !empty($_POST['login']) &&
         header("Location: index.php?page=home");
     }
     else {
-
-        include "./include/header.php";
 ?>
     <div class="contenu" id="connexion">
         <h2>Connexion refusée</h2>
@@ -28,7 +26,6 @@ if(isset($_POST['login']) && isset($_POST['pass']) && !empty($_POST['login']) &&
     }
 }
 else {
-    include "./include/header.php";
 ?>
  
     <div class="contenu" id="connexion">
