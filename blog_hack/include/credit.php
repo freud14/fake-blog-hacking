@@ -9,8 +9,6 @@ if (!(isset($_POST['login'])&&
 	!empty($_POST['email']))) {
 		header('Location: ./index.php?page=subscribe');
 	}
-	
-	include "./include/header.php";
 
 	$login = $_POST['login'];
 	$pass = $_POST['pass'];

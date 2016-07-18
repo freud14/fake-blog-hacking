@@ -55,7 +55,6 @@
     
     $comment_query = mysqli_query($link,$sql);       
     
-    include "./include/header.php"; 
 ?>
 
 <div class="contenu">
