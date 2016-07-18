@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `accepted_user_agent` (
   `user_agent` varchar(255) CHARACTER SET utf8 NOT NULL,
   `webbrowser_name` varchar(50) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contenu de la table `accepted_user_agent`
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `post_id` int(10) unsigned NOT NULL,
   `comment` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Contenu de la table `comment`
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `title` varchar(255) CHARACTER SET utf8 NOT NULL,
   `message` text CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `post`
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) CHARACTER SET utf8 NOT NULL,
   `level` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
 
 --
 -- Contenu de la table `user`
